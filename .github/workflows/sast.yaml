@@ -1,0 +1,44 @@
+on:
+  workflow_call: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: "go.mod"
+
+      - name: Download Go packages
+        shell: bash
+        run: |
+          go get ./...
+
+      - name: golangci-lint
+        shell: bash
+        run: |
+          echo "-- golangci-lint --"
+          VERSION=$(curl -s https://api.github.com/repos/golangci/golangci-lint/releases/latest | jq -r ".tag_name" | cut -c2-)
+          echo "Latest version is $VERSION"
+          curl -O -L "https://github.com/golangci/golangci-lint/releases/download/v${VERSION}/golangci-lint-${VERSION}-linux-amd64.tar.gz"
+          tar -xvzf "golangci-lint-${VERSION}-linux-amd64.tar.gz" -C "$(go env GOPATH)/bin" --strip-components 1 "golangci-lint-${VERSION}-linux-amd64/golangci-lint"
+          chmod +x "$(go env GOPATH)/bin/golangci-lint"
+          golangci-lint --version
+          golangci-lint run --timeout=3m
+
+      - name: govulncheck
+        shell: bash
+        run: |
+          go install golang.org/x/vuln/cmd/govulncheck@latest
+          govulncheck ./...
+
+      - name: gosec # https://github.com/securego/gosec
+        shell: bash
+        run: |
+          VERSION=$(curl -s https://api.github.com/repos/securego/gosec/releases/latest | jq -r ".tag_name" | cut -c2-)
+          echo "Latest version is $VERSION"
+          curl -O -L "https://github.com/securego/gosec/releases/download/v${VERSION}/gosec_${VERSION}_linux_amd64.tar.gz"
+          tar -xvzf "gosec_${VERSION}_linux_amd64.tar.gz" -C "$(go env GOPATH)/bin" "gosec"
+          chmod +x "$(go env GOPATH)/bin/gosec"
+          gosec ./...
