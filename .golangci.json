@@ -1,0 +1,97 @@
+{
+  "formatters": {
+    "exclusions": {
+      "generated": "lax",
+      "paths": [
+        "third_party$",
+        "builtin$",
+        "examples$"
+      ]
+    }
+  },
+  "linters": {
+    "enable": [
+      "bodyclose",
+      "depguard",
+      "errchkjson",
+      "errorlint",
+      "ginkgolinter",
+      "gosec",
+      "importas",
+      "loggercheck",
+      "testifylint",
+      "unparam",
+      "usestdlibvars"
+    ],
+    "exclusions": {
+      "generated": "lax",
+      "paths": [
+        "third_party$",
+        "builtin$",
+        "examples$"
+      ],
+      "presets": [
+        "comments",
+        "common-false-positives",
+        "legacy",
+        "std-error-handling"
+      ]
+    },
+    "settings": {
+      "depguard": {
+        "rules": {
+          "main": {
+            "deny": [
+              {
+                "desc": "Use context from stdlib instead",
+                "pkg": "golang.org/x/net/context"
+              }
+            ]
+          }
+        }
+      },
+      "ginkgolinter": {
+        "forbid-spec-pollution": true
+      },
+      "importas": {
+        "alias": [
+          {
+            "alias": "g",
+            "pkg": "github.com/onsi/ginkgo/v2"
+          },
+          {
+            "alias": "sqsTypes",
+            "pkg": "github.com/aws/aws-sdk-go-v2/service/sqs/types"
+          },
+          {
+            "alias": "s3Types",
+            "pkg": "github.com/aws/aws-sdk-go-v2/service/s3/types"
+          },
+          {
+            "alias": "dynamoTypes",
+            "pkg": "github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
+          },
+          {
+            "alias": "ginkgoTypes",
+            "pkg": "github.com/onsi/ginkgo/v2/types"
+          },
+          {
+            "alias": "cognitoIDPTypes",
+            "pkg": "github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider/types"
+          }
+        ],
+        "no-unaliased": true
+      },
+      "testifylint": {
+        "disable": [
+          "error-nil",
+          "float-compare",
+          "go-require",
+          "require-error"
+        ],
+        "enable-all": true
+      }
+    }
+  },
+  "version": "2"
+}
