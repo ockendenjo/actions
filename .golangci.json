@@ -64,6 +64,10 @@
             "pkg": "github.com/aws/aws-sdk-go-v2/service/sqs/types"
           },
           {
+            "alias": "snsTypes",
+            "pkg": "github.com/aws/aws-sdk-go-v2/service/sns/types"
+          },
+          {
             "alias": "s3Types",
             "pkg": "github.com/aws/aws-sdk-go-v2/service/s3/types"
           },
