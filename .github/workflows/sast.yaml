@@ -1,11 +1,5 @@
 on:
-  workflow_call:
-    inputs:
-      gosec_version:
-        description: 'Version of gosec to use'
-        required: false
-        type: string
-        default: 'latest'
+  workflow_call: {}
 
 jobs:
   scan:
@@ -26,6 +20,11 @@ jobs:
         shell: bash
         run: |
           go get ./...
+
+      - name: Go fix
+        shell: bash
+        run: |
+          go fix -diff ./...
 
       - name: Download config
         shell: bash
