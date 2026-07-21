@@ -23,7 +23,7 @@ jobs:
         shell: bash
         run: |
           wget -nv https://github.com/zizmorcore/zizmor/releases/download/v1.26.1/zizmor-x86_64-unknown-linux-gnu.tar.gz
-          echo "277f2bd8fd37cf60c42ab7afca6faa884e65440fa31e02b44bdaae60f62a358f  zizmor-x86_64-unknown-linux-gnu.tar.gz" | sha256sum --check
+          echo "8556289a64e7aaf2400cd516f61a471aa91c5902cc56ad96a82fd12f90c2ef73  zizmor-x86_64-unknown-linux-gnu.tar.gz" | sha256sum --check
           tar -xvzf zizmor-x86_64-unknown-linux-gnu.tar.gz
 
       - name: Run zizmor
