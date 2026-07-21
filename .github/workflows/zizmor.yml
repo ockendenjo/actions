@@ -7,6 +7,12 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
 jobs:
   zizmor:
     name: Run zizmor
@@ -15,18 +21,18 @@ jobs:
       contents: read         # Only needed for private repos. Needed to clone the repo.
     steps:
       - name: Checkout repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           persist-credentials: false
 
       - name: Download zizmor
         shell: bash
         run: |
-          wget -nv https://github.com/zizmorcore/zizmor/releases/download/v1.24.1/zizmor-x86_64-unknown-linux-gnu.tar.gz
-          echo "a8000f3c683319a523d3b20df0e75457ba591f049cfcbfa98966631b56733c03  zizmor-x86_64-unknown-linux-gnu.tar.gz" | sha256sum --check
+          wget -nv https://github.com/zizmorcore/zizmor/releases/download/v1.26.1/zizmor-x86_64-unknown-linux-gnu.tar.gz
+          echo "8556289a64e7aaf2400cd516f61a471aa91c5902cc56ad96a82fd12f90c2ef73  zizmor-x86_64-unknown-linux-gnu.tar.gz" | sha256sum --check
           tar -xvzf zizmor-x86_64-unknown-linux-gnu.tar.gz
 
       - name: Run zizmor
         shell: bash
         run: |
-          ./zizmor ./.github/
+          ./zizmor --pedantic ./.github/
