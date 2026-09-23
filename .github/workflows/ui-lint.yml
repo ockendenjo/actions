@@ -1,0 +1,37 @@
+name: ui-lint
+
+on:
+  workflow_call:
+    inputs:
+      working_dir:
+        type: string
+        required: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: ${{ inputs.working_dir }}/.nvmrc
+
+      - name: Install dependencies
+        working-directory: ${{ inputs.working_dir }}
+        run: npm ci
+
+      - name: Run Prettier
+        working-directory: ${{ inputs.working_dir }}
+        run: npx prettier --check .
+
+      - name: Run knip
+        working-directory: ${{ inputs.working_dir }}
+        run: npx knip
