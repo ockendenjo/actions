@@ -45,6 +45,10 @@
               {
                 "desc": "Use context from stdlib instead",
                 "pkg": "golang.org/x/net/context"
+              },
+              {
+                "desc": "Use uuid from stdlib instead",
+                "pkg": "github.com/google/uuid"
               }
             ]
           }
