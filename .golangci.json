@@ -5,20 +5,25 @@
       "paths": [
         "third_party$",
         "builtin$",
-        "examples$"
+        "examples$",
+        "node_modules"
       ]
     }
   },
   "linters": {
     "enable": [
+      "bidichk",
       "bodyclose",
+      "cyclop",
       "depguard",
       "errchkjson",
       "errorlint",
+      "exhaustive",
       "ginkgolinter",
       "gosec",
       "importas",
       "loggercheck",
+      "noctx",
       "testifylint",
       "unparam",
       "usestdlibvars"
@@ -28,7 +33,8 @@
       "paths": [
         "third_party$",
         "builtin$",
-        "examples$"
+        "examples$",
+        "node_modules"
       ],
       "presets": [
         "comments",
